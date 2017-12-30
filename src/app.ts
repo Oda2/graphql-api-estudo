@@ -1,6 +1,20 @@
-console.log('aqui');
+import * as express from 'express';
 
-let a = 'ola';
-let b = 'abc';
+class App {
+  public express: express.Application;
 
-console.log(b);
+  constructor() {
+    this.express = express();
+    this.middleware();
+  }
+
+  private middleware(): void {
+    this.express.use('/hello', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+      return res.send({
+        hello: 'Hello'
+      });
+    });
+  }
+}
+
+export default new App().express;

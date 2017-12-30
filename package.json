@@ -5,10 +5,15 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "node_modules/.bin/nodemon --delay 5 dist/app.js",
+    "dev": "node_modules/.bin/nodemon --delay 5 dist/index.js",
     "gulp": "node_modules/.bin/gulp"
   },
   "dependencies": {
+    "express": "4.16.2"
+  },
+  "devDependencies": {
+    "@types/express": "4.0.37",
+    "@types/node": "8.5.2",
     "gulp": "3.9.1",
     "gulp-clean": "0.3.2",
     "gulp-typescript": "3.2.2",
