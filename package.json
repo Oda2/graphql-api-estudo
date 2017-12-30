@@ -1,8 +1,7 @@
 {
-  "name": "graphql-aula",
+  "name": "graphql-estudo",
   "version": "1.0.0",
   "author": "Renato Oda <renato.oda2@gmail.com>",
-  "private": true,
   "license": "MIT",
   "scripts": {
     "dev": "node_modules/.bin/nodemon --delay 5 dist/index.js",
