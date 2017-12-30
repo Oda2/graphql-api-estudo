@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6", // Vou utilizar o padrão do es6
+    "module": "commonjs", //gere código no padrão common
+    "outDir": "dist"
+  },
+  "compileOnSave": false,
+  "include": [
+    "src/**/*.ts" //Pasta para compilar
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

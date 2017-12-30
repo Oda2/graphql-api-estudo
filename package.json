@@ -1,0 +1,14 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Renato Oda <renato.oda2@gmail.com>",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "3.9.1",
+    "gulp-clean": "0.3.2",
+    "gulp-typescript": "3.2.2",
+    "typescript": "2.5.3"
+  }
+}
