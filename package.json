@@ -4,7 +4,7 @@
   "author": "Renato Oda <renato.oda2@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "node_modules/.bin/nodemon --delay 5 dist/index.js",
+    "dev": "NODE_ENV=development node_modules/.bin/nodemon --delay 5 dist/index.js",
     "gulp": "node_modules/.bin/gulp"
   },
   "dependencies": {
