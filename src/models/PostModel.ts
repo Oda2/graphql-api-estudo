@@ -1,0 +1,60 @@
+import * as Sequelize from 'sequelize';
+
+import { BaseModelInterface } from '../interfaces/BaseModelInterface';
+import { ModelsHashInterface } from 'sequelize';
+import { ModelsInterface } from '../interfaces/ModelsInterface';
+
+export interface PostAttributes {
+  id?: number;
+  title?: string;
+  content?: string;
+  photo?: string;
+  author?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface PostInstance extends Sequelize.Instance<PostAttributes>, PostAttributes {
+}
+
+export interface PostModel extends BaseModelInterface, Sequelize.Model<PostInstance, PostAttributes> {  
+}
+
+export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes): PostModel => {
+  const Post: PostModel = sequelize.define('Post', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
+    title: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    photo: {
+      type: DataTypes.BLOB({
+        length: 'long'
+      }),
+      allowNull: false
+    }
+  }, {
+    tableName: 'posts'
+  });
+
+  Post.associate = (models: ModelsInterface): void => {
+    models.Post.belongsTo(models.User, { 
+      foreignKey: {
+        allowNull: false,
+        field: 'author',
+        name: 'author'
+      }
+    });
+  };
+
+  return Post;
+};
