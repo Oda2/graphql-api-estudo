@@ -8,10 +8,15 @@
     "gulp": "node_modules/.bin/gulp"
   },
   "dependencies": {
-    "express": "4.16.2"
+    "express": "4.16.2",
+    "express-graphql": "0.6.11",
+    "graphql": "0.11.7",
+    "graphql-tools": "2.3.0"
   },
   "devDependencies": {
     "@types/express": "4.0.37",
+    "@types/express-graphql": "0.0.34",
+    "@types/graphql": "0.11.5",
     "@types/node": "8.5.2",
     "gulp": "3.9.1",
     "gulp-clean": "0.3.2",
