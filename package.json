@@ -8,6 +8,7 @@
     "gulp": "node_modules/.bin/gulp"
   },
   "dependencies": {
+    "bcryptjs": "2.4.3",
     "express": "4.16.2",
     "express-graphql": "0.6.11",
     "graphql": "0.11.7",
@@ -16,6 +17,7 @@
     "sqlite3": "^3.1.13"
   },
   "devDependencies": {
+    "@types/bcryptjs": "2.4.1",
     "@types/express": "4.0.37",
     "@types/express-graphql": "0.0.34",
     "@types/graphql": "0.11.5",
