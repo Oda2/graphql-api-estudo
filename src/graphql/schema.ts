@@ -23,11 +23,22 @@ const typeDefs = `
   type Query {
     allUsers: [User!]!
   }
+
+  type Mutation {
+    createUser(name: String!, email: String!): User
+  }
 `;
 
 const resolvers = {
   Query: {
     allUsers: () => users
+  },
+  Mutation: {
+    createUser: (parent, args, context, info) => {
+      const newUser = Object.assign({ id: users.length + 1}, args);
+      users.push(newUser);
+      return newUser;
+    }
   }
 };
 
