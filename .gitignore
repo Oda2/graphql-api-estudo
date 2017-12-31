@@ -65,3 +65,6 @@ config/env/test.js
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# SQLite
+*.sqlite3
