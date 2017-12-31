@@ -2,7 +2,6 @@ import * as Sequelize from 'sequelize';
 import { genSaltSync, hashSync, compareSync } from 'bcryptjs';
 
 import { BaseModelInterface } from '../interfaces/BaseModelInterface';
-import { ModelsHashInterface } from 'sequelize';
 
 export interface UserAttributes {
   id?: number;

@@ -1,7 +1,6 @@
 import * as Sequelize from 'sequelize';
 
 import { BaseModelInterface } from '../interfaces/BaseModelInterface';
-import { ModelsHashInterface } from 'sequelize';
 import { ModelsInterface } from '../interfaces/ModelsInterface';
 
 export interface PostAttributes {
