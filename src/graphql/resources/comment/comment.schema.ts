@@ -1,7 +1,7 @@
 const commentTypes = `
 
   # User definition type
-  type Post {
+  type Comment {
     id: ID!
     comment: String!
     createdAt: String!
@@ -23,7 +23,7 @@ const commentQueries = `
 
 const commentMutations = `
   createComment(input: CommentInput!): Comment
-  updateComment(id: ID!, input CommentInput): Comment
+  updateComment(id: ID!, input: CommentInput): Comment
   deleteComment(id: ID!): Boolean
 `;
 
