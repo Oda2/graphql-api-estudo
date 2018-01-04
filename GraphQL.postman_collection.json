@@ -1,0 +1,73 @@
+{
+	"info": {
+		"name": "GraphQL",
+		"_postman_id": "89e73827-7eb1-f6ed-4937-1d3647dbcfec",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Lista de Usuario (Content-Type GraphQL)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/graphql"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "query getUserList($first: Int, $offset: Int) {\n\tusers(first: $first, offset: $offset) {\n\t\tname\n\t\temail\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/graphql?variables={\"first\": 10, \"offset\": 0}",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "variables",
+							"value": "{\"first\": 10, \"offset\": 0}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Lista de Usuario (JSON)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"\\nquery getUserList($first: Int, $offset: Int) {\\nusers(first: $first, offset: $offset) {\\n name\\n email\\n }\\n \\n}\",\n\t\"variables\": {\n\t\t\"first\": 1,\n\t\t\"offset\": 0\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/graphql",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
