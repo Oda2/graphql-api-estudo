@@ -4,12 +4,19 @@ import * as graphqlHTTP from 'express-graphql';
 import db from './models';
 import schema from './graphql/schema';
 import { extractJwtMiddleware } from './middlewares/extract-jwt.middleware';
+import { DataLoaderFactory } from './graphql/dataloaders/DataLoaderFactory';
 
 class App {
   public express: express.Application;
+  private dataLoaderFactory: DataLoaderFactory;
 
   constructor() {
     this.express = express();
+    this.init();
+  }
+
+  private init(): void {
+    this.dataLoaderFactory = new DataLoaderFactory(db);
     this.middleware();
   }
 
@@ -17,7 +24,8 @@ class App {
     this.express.use('/graphql',
       (req, res, next) => {
         req['context'] = {};
-        req['context'].db = db;
+        req['context']['db'] = db;
+        req['context']['dataloaders'] = this.dataLoaderFactory.getLoaders();
         next();
       },
 

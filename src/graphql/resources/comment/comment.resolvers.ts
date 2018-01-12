@@ -7,18 +7,21 @@ import { handleError, throwError } from "../../../utils/utils";
 import { compose } from "../../composable/composable.resolver";
 import { authResolvers } from "../../composable/auth.resolver";
 import { AuthUser } from "../../../interfaces/AuthUserInterface";
+import { DataLoaders } from "../../../interfaces/DataLoadersInterface";
 
 export const commentResolvers = {
 
   Comment: {
-    user: (parent, args, { db }: { db: DbConnection }, info: GraphQLResolveInfo) => {
-      return db.User
-        .findById(parent.get('user'))
+    user: (parent, args, { db, dataloaders: { userLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
+      return userLoader
+        .load(parent.get('author'))
         .catch(handleError);
     },
 
-    post: (parent, args, { db }: { db: DbConnection }, info: GraphQLResolveInfo) => {
-      return db.Post.findById(parent.get('post'));
+    post: (parent, args, { db, dataloaders: { postLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
+      return postLoader
+        .load(parent.get('post'))
+        .catch(handleError);
     }
   },
 
