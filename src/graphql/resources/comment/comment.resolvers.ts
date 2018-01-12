@@ -8,31 +8,33 @@ import { compose } from "../../composable/composable.resolver";
 import { authResolvers } from "../../composable/auth.resolver";
 import { AuthUser } from "../../../interfaces/AuthUserInterface";
 import { DataLoaders } from "../../../interfaces/DataLoadersInterface";
+import { ResolverContext } from "../../../interfaces/ResolverContextInterface";
 
 export const commentResolvers = {
 
   Comment: {
     user: (parent, args, { db, dataloaders: { userLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
       return userLoader
-        .load(parent.get('author'))
+        .load({ key: parent.get('user'), info })
         .catch(handleError);
     },
 
     post: (parent, args, { db, dataloaders: { postLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
       return postLoader
-        .load(parent.get('post'))
+        .load({ key: parent.get('post'), info })
         .catch(handleError);
     }
   },
 
   Query: {
-    commentsByPost: (parent, { postId, first = 10, offset = 0 }, { db }: { db: DbConnection }, info: GraphQLResolveInfo) => {
+    commentsByPost: (parent, { postId, first = 10, offset = 0 }, context: ResolverContext, info: GraphQLResolveInfo) => {
       postId = parseInt(postId);
-      return db.Comment
+      return context.db.Comment
         .findAll({
           where: { post: postId },
           limit: first,
-          offset: offset
+          offset: offset,
+          attributes: context.requestFields.getFields(info)
         })
         .catch(handleError);
     }

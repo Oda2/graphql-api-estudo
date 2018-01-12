@@ -7,15 +7,18 @@ import { handleError, throwError } from "../../../utils/utils";
 import { compose } from "../../composable/composable.resolver";
 import { authResolvers } from "../../composable/auth.resolver";
 import { AuthUser } from "../../../interfaces/AuthUserInterface";
+import { RequestFields } from '../../ast/RequestFields';
+import { ResolverContext } from "../../../interfaces/ResolverContextInterface";
 
 export const userResolvers = {
   User: {
-    posts: (parent, { first = 10, offset = 0 }, { db }: { db: DbConnection }, info: GraphQLResolveInfo) => {
+    posts: (parent, { first = 10, offset = 0 }, { db, requestFields }: { db: DbConnection, requestFields: RequestFields }, info: GraphQLResolveInfo) => {
       return db.Post
         .findAll({
           where: { author: parent.get('id') },
           limit: first,
-          offset: offset
+          offset: offset,
+          attributes: requestFields.getFields(info, { keep: ['id'], exclude: ['comments'] })
         })
         .catch(handleError);
     }
@@ -23,19 +26,22 @@ export const userResolvers = {
 
   Query: {
     users:
-      ((parent, { first = 10, offset = 0 }, { db }: { db: DbConnection }, info: GraphQLResolveInfo) => {
-        return db.User
+      ((parent, { first = 10, offset = 0 }, context: ResolverContext, info: GraphQLResolveInfo) => {
+        return context.db.User
           .findAll({
             limit: first,
-            offset: offset
+            offset: offset,
+            attributes: context.requestFields.getFields(info, { keep: ['id'], exclude: ['post'] })
           })
           .catch(handleError);
       }),
 
-    user: (parent, { id }, { db }: { db: DbConnection }, info: GraphQLResolveInfo) => {
+    user: (parent, { id }, context: ResolverContext, info: GraphQLResolveInfo) => {
       id = parseInt(id);
-      return db.User
-        .findById(id)
+      return context.db.User
+        .findById(id, {
+          attributes: context.requestFields.getFields(info, { keep: ['id'], exclude: ['post'] })
+        })
         .then((user: UserInstance) => {
           throwError(!user, `User with id ${id} not found!`);
           return user;
@@ -44,12 +50,14 @@ export const userResolvers = {
     },
 
     currentUser: compose(...authResolvers)
-      ((parent, { input }, { db, authUser }: { db: DbConnection, authUser: AuthUser }, info: GraphQLResolveInfo) => {
-        return db.sequelize.transaction((t: Transaction) => {
-          return db.User
-            .findById(authUser.id)
+      ((parent, { input }, context: ResolverContext, info: GraphQLResolveInfo) => {
+        return context.db.sequelize.transaction((t: Transaction) => {
+          return context.db.User
+            .findById(context.authUser.id, {
+              attributes: context.requestFields.getFields(info, { keep: ['id'], exclude: ['post'] })
+            })
             .then((user: UserInstance) => {
-              throwError(!user, `User with id ${authUser.id} not found!`);
+              throwError(!user, `User with id ${context.authUser.id} not found!`);
               return user;
             });
         }).catch(handleError);
