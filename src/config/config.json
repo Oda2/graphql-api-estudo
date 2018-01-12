@@ -5,7 +5,8 @@
   },
   "test": {
     "storage": "data_test.sqlite3",
-    "dialect": "sqlite"
+    "dialect": "sqlite",
+    "logging": false
   },
   "production": {
     "username": "root",
