@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development JWT_SECRET=SpiderMan node_modules/.bin/nodemon --delay 5 dist/index.js",
-    "gulp": "node_modules/.bin/gulp"
+    "gulp": "node_modules/.bin/gulp",
+    "test": "NODE_ENV=test JWT_SECRET=jwt_test mocha"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -39,6 +40,7 @@
     "gulp-typescript": "3.2.2",
     "mocha": "4.0.1",
     "nodemon": "1.12.0",
+    "ts-node": "3.3.0",
     "typescript": "2.5.3"
   }
 }

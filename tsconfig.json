@@ -4,7 +4,7 @@
       "esnext"
     ],
     "target": "es6", // Vou utilizar o padrão do es6
-    "module": "commonjs", //gere código no padrão common
+    "module": "commonjs" //gere código no padrão common
   },
   "compileOnSave": false,
   "include": [
