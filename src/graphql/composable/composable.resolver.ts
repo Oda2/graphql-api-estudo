@@ -10,7 +10,9 @@ export function compose<TSource, TOutput>(
 ): ComposableResolver<TSource, TOutput> {
   if (funcs.length === 0) {
     // If no functions return the identity
-    return o => o
+    return o => {
+      return o;
+    }
   }
 
   if (funcs.length === 1) {
@@ -28,10 +30,4 @@ export function compose<TSource, TOutput>(
     }
     return result
   }
-}
-
-export function CompositeResolver<TSource, TOutput>(
-  ...funcs: Array<ComposableResolver<TSource, TOutput>>,
-): (resolver: GraphQLFieldResolver<TSource, TOutput>) => GraphQLFieldResolver<TSource, TOutput> {
-  return compose(...funcs)
 }
