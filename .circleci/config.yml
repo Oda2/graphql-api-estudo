@@ -23,4 +23,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: yarn test
+      - run: yarn run coverage
+      - notify:
+        - webhooks:
+          - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN
