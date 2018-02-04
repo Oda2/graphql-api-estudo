@@ -12,7 +12,7 @@ import { ResolverContext } from "../../../interfaces/ResolverContextInterface";
 
 export const postResolvers = {
 
-  Post: {
+  Post: {   
     author: (parent, args, { db, dataloaders: { userLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
       return userLoader
         .load({ key: parent.get('author'), info })
