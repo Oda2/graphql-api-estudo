@@ -4,6 +4,9 @@
   "author": "Renato Oda <renato.oda2@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "clusters": "NODE_ENV=development port=8080 node dist/clusters",
+    "build": "yarn run gulp build",
+    "start": "yarn run build && yarn run clusters",
     "dev": "NODE_ENV=development JWT_SECRET=SpiderMan node_modules/.bin/nodemon --delay 5 dist/index.js",
     "gulp": "node_modules/.bin/gulp",
     "test": "NODE_ENV=test JWT_SECRET=jwt_test mocha",
