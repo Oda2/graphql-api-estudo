@@ -1,8 +1,8 @@
 version: 2
 jobs:
-  node6:
+  node9:
     docker:
-      - image: circleci/node:6.9.5
+      - image: circleci/node:9.5.0
     working_directory: ~/repo
 
     steps:
@@ -54,5 +54,8 @@ workflows:
   version: 2
   project:
     jobs:
-      - node6
+      - node9
       - node8
+  notify:
+    webhooks:
+      - url: https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN
