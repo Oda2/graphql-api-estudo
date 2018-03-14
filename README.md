@@ -1,4 +1,4 @@
-# GraphQL
+# API de estudo sobre GraphQL
 
 [![CircleCI](https://circleci.com/gh/Oda2/graphql-api-estudo.svg?style=svg)](https://circleci.com/gh/Oda2/graphql-api-estudo)
 [![Build Status](https://travis-ci.org/Oda2/graphql-api-estudo.svg?branch=master)](https://travis-ci.org/Oda2/graphql-api-estudo)
