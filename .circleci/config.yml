@@ -1,8 +1,8 @@
 version: 2
 jobs:
-  node9:
+  node10:
     docker:
-      - image: circleci/node:9.5.0
+      - image: circleci/node:dubnium
     working_directory: ~/repo
 
     steps:
@@ -27,7 +27,7 @@ jobs:
 
   node8:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:carbon
     working_directory: ~/repo
 
     steps:
@@ -54,5 +54,5 @@ workflows:
   version: 2
   project:
     jobs:
-      - node9
+      - node10
       - node8
