@@ -79,6 +79,35 @@ describe('Post', () => {
             .catch(handleError);
         });
 
+        it('should return a list of Posts and Author', () => {
+          let body = {
+            query: `
+              query {
+                posts {
+                  title
+                  content
+                  photo
+                  author {
+                    id
+                  }
+                }
+              }`
+          };
+  
+          return chai.request(app)
+            .post('/graphql')
+            .set('content-type', 'application/json')
+            .send(JSON.stringify(body))
+            .then(res => {
+              const postList = res.body.data.posts;
+              expect(res.body.data).to.be.an('object');
+              expect(postList[0]).to.not.have.keys(['id', 'createdAt', 'updatedAt', 'comments'])
+              expect(postList[0]).to.have.keys(['title', 'content', 'photo', 'author']);
+              expect(postList[0].title).to.equals('First post');
+            })
+            .catch(handleError);
+        });
+
         it('should paginate a list of Posts', () => {
           let body = {
             query: `

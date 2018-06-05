@@ -12,7 +12,7 @@ import { ResolverContext } from "../../../interfaces/ResolverContextInterface";
 
 export const postResolvers = {
 
-  Post: {   
+  Post: {
     author: (parent, args, { db, dataloaders: { userLoader } }: { db: DbConnection, dataloaders: DataLoaders }, info: GraphQLResolveInfo) => {
       return userLoader
         .load({ key: parent.get('author'), info })
@@ -25,7 +25,7 @@ export const postResolvers = {
           where: { post: parent.get('id') },
           limit: first,
           offset: offset,
-          attributes: context.requestFields.getFields(info)
+          attributes: context.requestFields.getFields(info, { keep: [], exclude: [] })
         })
         .catch(handleError);
     }

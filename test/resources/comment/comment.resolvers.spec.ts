@@ -62,6 +62,35 @@ describe('Comment', () => {
   describe('Queries', () => {
     describe('application/json', () => {
 
+      it('should return a list of Posts and Comments', () => {
+        let body = {
+          query: `
+            query {
+              posts {
+                title
+                content
+                photo
+                comments {
+                  id
+                }
+              }
+            }`
+        };
+
+        return chai.request(app)
+          .post('/graphql')
+          .set('content-type', 'application/json')
+          .send(JSON.stringify(body))
+          .then(res => {
+            const postList = res.body.data.posts;
+            expect(res.body.data).to.be.an('object');
+            expect(postList[0]).to.not.have.keys(['id', 'createdAt', 'updatedAt', 'author'])
+            expect(postList[0]).to.have.keys(['title', 'content', 'photo', 'comments']);
+            expect(postList[0].title).to.equals('First post');
+          })
+          .catch(handleError);
+      });
+
       describe('commentsByPost', () => {
         it('should return a list of Comments', () => {
           let body = {
