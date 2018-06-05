@@ -2,7 +2,7 @@ version: 2
 jobs:
   node10:
     docker:
-      - image: circleci/node:dubnium
+      - image: circleci/node:latest
     working_directory: ~/repo
 
     steps:
